@@ -204,6 +204,10 @@ type, public :: ice_ocean_boundary_type
                                                             !! for divergence damping, as determined
                                                             !! outside of the ocean model [m3 s-1]
   real, pointer, dimension(:,:) :: shelf_sfc_mass_flux =>NULL() !< mass flux to surface of ice sheet [kg m-2 s-1]
+  real, pointer, dimension(:)     :: stk_wavenumbers => NULL() !<
+  real, pointer, dimension(:,:,:) :: ustkb           => NULL() !<
+  real, pointer, dimension(:,:,:) :: vstkb           => NULL() !<
+
   integer :: xtype                    !< The type of the exchange - REGRID, REDIST or DIRECT
   type(coupler_2d_bc_type) :: fluxes  !< A structure that may contain an array of named fields
                                       !! used for passive tracer fluxes.
@@ -211,7 +215,8 @@ type, public :: ice_ocean_boundary_type
                                       !! This flag may be set by the flux-exchange code, based on what
                                       !! the sea-ice model is providing.  Otherwise, the value from
                                       !! the surface_forcing_CS is used.
-end type ice_ocean_boundary_type
+  integer :: num_stk_bands            !< Number of Stokes drift bands passed through the coupler
+  end type ice_ocean_boundary_type
 
 integer :: id_clock_forcing !< A CPU time clock
 
